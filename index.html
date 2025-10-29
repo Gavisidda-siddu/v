@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - HealthConnect</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">HealthConnect</div>
+            
+            <div class="nav-links">
+                <a href="{% url 'home' %}">🏠 Home</a>
+                <a href="{% url 'appointment' %}">📅 Appointments</a>
+                <a href="{% url 'medication' %}">💊 Medications</a>
+                <a href="{% url 'faq' %}">❓ FAQs</a>
+                <a href="{% url 'bloodbank' %}">🩸 Blood Bank</a>
+                <a href="{% url 'consultation' %}">📹 Consultation</a>
+                <a href="{% url 'records' %}">📋 Records</a>
+                <a href="{% url 'chat' %}">💬 Chat</a>
+            </div>
+
+            
+            <div class="profile-container">
+                <button class="profile-icon" id="profile-icon">👤</button>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <a href="profile.html">📝 View Profile</a>
+                    <button onclick="handleUploadPhoto()">📷 Upload Photo</button>
+                    <button class="logout-btn">🚪 Logout</button>
+                </div>
+            </div>
+            
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="{% url 'home' %}">🏠 Home</a>
+            <a href="{% url 'appointment' %}">📅 Appointments</a>
+            <a href="{% url 'medication' %}">💊 Medications</a>
+            <a href="{% url 'faq' %}">❓ FAQs</a>
+            <a href="{% url 'bloodbank' %}">🩸 Blood Bank</a>
+            <a href="{% url 'consultation' %}">📹 Consultation</a>
+            <a href="{% url 'records' %}">📋 Records</a>
+            <a href="{% url 'chat' %}">💬 Chat</a>
+            <a href="{% url 'profile' %}">👤 Profile</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Your Health, Our Priority</h1>
+        <p>Comprehensive healthcare services at your fingertips</p>
+        <div class="hero-buttons">
+            <a href="{% url 'appointment' %}" class="btn btn-primary" style="background: white; color: #4A90E2;">📅 Book Appointment</a>
+            <a href="{% url 'consultation' %}" class="btn" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white;">📹 Video Consultation</a>
+        </div>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>📅 Book Appointment</h3>
+            <p>Schedule your doctor appointments online</p>
+            <a href="{% url 'appointment' %}" class="btn btn-primary" style="margin-top: 1rem;">Book Now</a>
+        </div>
+        
+        <div class="feature-card">
+            <h3>💊 Medication Tracker</h3>
+            <p>Manage your medications and set reminders</p>
+            <a href="{% url 'medication' %}" class="btn btn-primary" style="margin-top: 1rem;">Track Meds</a>
+        </div>
+        
+        <div class="feature-card">
+            <h3>📹 Video Consultation</h3>
+            <p>Connect with doctors from anywhere</p>
+            <a href="{% url 'consultation' %}" class="btn btn-primary" style="margin-top: 1rem;">Consult Now</a>
+        </div>
+        
+        <div class="feature-card">
+            <h3>🩸 Blood Bank</h3>
+            <p>Find nearby blood donors and banks</p>
+            <a href="{% url 'bloodbank' %}" class="btn btn-primary" style="margin-top: 1rem;">Find Bank</a>
+        </div>
+        
+        <div class="feature-card">
+            <h3>📋 Medical Records</h3>
+            <p>Access your health records anytime</p>
+            <a href="{% url 'records' %}" class="btn btn-primary" style="margin-top: 1rem;">View Records</a>
+        </div>
+        
+        <div class="feature-card">
+            <h3>❓ FAQs</h3>
+            <p>Get answers to common questions</p>
+            <a href="{% url 'faq' %}" class="btn btn-primary" style="margin-top: 1rem;">Read More</a>
+        </div>
+        
+        <div class="feature-card">
+            <h3>💬 Patient Chat</h3>
+            <p>Connect with other patients</p>
+            <a href="{% url 'chat' %}" class="btn btn-primary" style="margin-top: 1rem;">Start Chat</a>
+        </div>
+        
+        <div class="feature-card">
+            <h3>🚨 Emergency</h3>
+            <p>Get help when you need it most</p>
+            <a href="sos.html" class="btn" style="background: #FF4D4F; color: white; margin-top: 1rem;">SOS Help</a>
+        </div>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn callback-button" onclick="window.location.href='callback.html'" title="Request Callback">📞</button>
+        <button class="floating-btn sos-button" onclick="window.location.href='sos.html'" title="Emergency SOS">🚨</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>HealthConnect</h4>
+                <p>Your trusted healthcare partner</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'appointment' %}">Book Appointment</a>
+                <a href="{% url 'profile' %}">Profile</a>
+                <a href="{% url 'faq' %}">FAQs</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: support@healthconnect.com</p>
+                <p>Phone: 1800-HEALTH</p>
+            </div>
+        </div>
+        <p style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #555; text-align: center;">&copy; 2024 HealthConnect. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function handleUploadPhoto() {
+            alert('Photo upload feature will be available soon!');
+        }
+    </script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

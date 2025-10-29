@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - HealthConnect</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="card">
+        <h2>🩺 HealthConnect</h2>
+        <h3>Welcome Back</h3>
+        
+        <form id="signin-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div id="error-message" class="alert alert-error" style="display: none;"></div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+        </form>
+        
+        <p style="text-align: center; margin-top: 1.5rem;">
+            Don't have an account? <a href="{% url 'signup' %}">Sign Up</a>
+        </p>
+    </div>
+    
+    <script>
+        // Check if already logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+            window.location.href = '{% url 'home' %}';
+        }
+        
+        document.getElementById('signin-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            const errorMsg = document.getElementById('error-message');
+            errorMsg.style.display = 'none';
+            
+            // Sign in the user
+            const result = await signin(email, password);
+            
+            if (result.success) {
+                // Redirect to home page
+                window.location.href = '{% url 'home' %}';
+            } else {
+                errorMsg.textContent = result.message;
+                errorMsg.style.display = 'block';
+            }
+        });
+    </script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
+

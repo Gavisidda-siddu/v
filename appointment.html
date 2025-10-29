@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - HealthConnect</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">HealthConnect</div>
+            
+            <div class="nav-links">
+            <a href="{% url 'home' %}">🏠 Home</a>
+            <a href="{% url 'appointment' %}">📅 Appointments</a>
+            <a href="{% url 'medication' %}">💊 Medications</a>
+            <a href="{% url 'faq' %}">❓ FAQs</a>
+            <a href="{% url 'bloodbank' %}">🩸 Blood Bank</a>
+            <a href="{% url 'consultation' %}">📹 Consultation</a>
+            <a href="{% url 'records' %}">📋 Records</a>
+            <a href="{% url 'chat' %}">💬 Chat</a>
+        </div>
+
+            
+            <div class="profile-container">
+                <button class="profile-icon" id="profile-icon">👤</button>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <a href="{% url 'profile' %}">📝 View Profile</a>
+                    <button onclick="handleUploadPhoto()">📷 Upload Photo</button>
+                    <button class="logout-btn">🚪 Logout</button>
+                </div>
+            </div>
+            
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="nav-links">
+            <a href="{% url 'home' %}">🏠 Home</a>
+            <a href="{% url 'appointment' %}">📅 Appointments</a>
+            <a href="{% url 'medication' %}">💊 Medications</a>
+            <a href="{% url 'faq' %}">❓ FAQs</a>
+            <a href="{% url 'bloodbank' %}">🩸 Blood Bank</a>
+            <a href="{% url 'consultation' %}">📹 Consultation</a>
+            <a href="{% url 'records' %}">📋 Records</a>
+            <a href="{% url 'chat' %}">💬 Chat</a>
+        </div>
+    </nav>
+
+    <div style="max-width: 1000px; margin: 2rem auto; padding: 0 1rem;">
+        <div class="card">
+            <h2>📅 Book an Appointment</h2>
+            
+            <form id="appointment-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" required min="1" max="120">
+                </div>
+                
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <select id="department" name="department" required>
+                        <option value="">Select Department</option>
+                        <option value="general">General Medicine</option>
+                        <option value="cardiology">Cardiology</option>
+                        <option value="orthopedics">Orthopedics</option>
+                        <option value="pediatrics">Pediatrics</option>
+                        <option value="dermatology">Dermatology</option>
+                        <option value="neurology">Neurology</option>
+                        <option value="oncology">Oncology</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date">Preferred Date</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="time">Preferred Time</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Book Appointment</button>
+            </form>
+        </div>
+
+        <div class="card" style="margin-top: 2rem;">
+            <h2>📋 My Appointments</h2>
+            <div id="appointments-list"></div>
+        </div>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <div class="floating-buttons">
+        <button class="floating-btn callback-button" onclick="window.location.href='callback.html'" title="Request Callback">📞</button>
+        <button class="floating-btn sos-button" onclick="window.location.href='sos.html'" title="Emergency SOS">🚨</button>
+    </div>
+
+    <script>
+        // Set minimum date to today
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+        
+        // Display existing appointments
+        async function displayAppointments() {
+            const appointments = await getAppointments();
+            const container = document.getElementById('appointments-list');
+            
+            if (!container) return;
+            
+            if (appointments.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666;">No appointments booked yet.</p>';
+                return;
+            }
+            
+            container.innerHTML = appointments.map(appt => `
+                <div style="background: #F5F5F5; padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap;">
+                        <div style="flex: 1;">
+                            <h4 style="color: #4A90E2; margin-bottom: 0.5rem;">${appt.department}</h4>
+                            <p style="color: #666; margin-bottom: 0.3rem;"><strong>Date:</strong> ${appt.date}</p>
+                            <p style="color: #666; margin-bottom: 0.3rem;"><strong>Time:</strong> ${appt.time}</p>
+                            <p style="color: #666; margin-bottom: 0.3rem;"><strong>Patient:</strong> ${appt.name} (${appt.age}, ${appt.gender})</p>
+                        </div>
+                        <button class="btn btn-danger" onclick="deleteAppt(${appt.id})" style="font-size: 0.9rem; padding: 0.4rem 0.8rem;">Cancel</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        async function deleteAppt(id) {
+            if (confirm('Are you sure you want to cancel this appointment?')) {
+                await deleteAppointment(id);
+                await displayAppointments();
+            }
+        }
+        
+        document.getElementById('appointment-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                age: document.getElementById('age').value,
+                gender: document.getElementById('gender').value,
+                department: document.getElementById('department').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value
+            };
+            
+            await saveAppointment(formData);
+            alert('Appointment booked successfully!');
+            this.reset();
+            await displayAppointments();
+        });
+        
+        // Load appointments on page load
+        displayAppointments();
+    </script>
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
+

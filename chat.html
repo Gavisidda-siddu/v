@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Chat - HealthConnect</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">🩺 HealthConnect</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="appointment.html">Book Appointment</a>
+            <a href="medication.html">Medication Tracker</a>
+            <a href="faq.html">FAQs</a>
+            <a href="callback.html">Request Callback</a>
+            <a href="bloodbank.html">Blood Bank</a>
+            <a href="consultation.html">Video Consultation</a>
+            <a href="records.html">Medical Records</a>
+            <a href="sos.html">Emergency SOS</a>
+            <a href="chat.html">Patient Chat</a>
+            <a href="profile.html">Profile</a>
+            <a href="#" class="logout-btn btn btn-danger" style="padding: 0.5rem 1rem;">Logout</a>
+        </div>
+    </nav>
+
+    <div style="max-width: 800px; margin: 2rem auto; padding: 0 1rem;">
+        <div class="card">
+            <h2>💬 Patient Chat</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 2rem;">Connect with other patients and share your experiences</p>
+            
+            <div id="chat-messages" style="background: #F5F5F5; padding: 1.5rem; border-radius: 8px; min-height: 400px; max-height: 600px; overflow-y: auto; margin-bottom: 1rem;">
+                <div class="chat-message bot">
+                    <strong>Patient Support:</strong> Welcome to the patient chat! How can we help you today?
+                </div>
+                <div class="chat-message user">
+                    Hi, I have a question about managing medications.
+                </div>
+                <div class="chat-message bot">
+                    <strong>Patient Support:</strong> Feel free to ask! The community is here to help.
+                </div>
+                <div class="chat-message user">
+                    What's the best way to remember to take medicines on time?
+                </div>
+                <div class="chat-message bot">
+                    <strong>Patient Support:</strong> Using the medication tracker feature in HealthConnect is recommended. You can set reminders and track your schedule.
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 0.5rem;">
+                <input type="text" id="chat-input" placeholder="Type your message..." style="flex: 1; padding: 0.8rem; border: 2px solid #E0E0E0; border-radius: 8px; font-size: 1rem;">
+                <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        
+        <div class="card" style="margin-top: 2rem;">
+            <h3>Online Users</h3>
+            <div style="margin-top: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <div style="width: 10px; height: 10px; background: #52C41A; border-radius: 50%;"></div>
+                    <span>John D. (Online)</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <div style="width: 10px; height: 10px; background: #52C41A; border-radius: 50%;"></div>
+                    <span>Sarah M. (Online)</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <div style="width: 10px; height: 10px; background: #999; border-radius: 50%;"></div>
+                    <span>Michael P. (Away)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                const messagesContainer = document.getElementById('chat-messages');
+                const newMessage = document.createElement('div');
+                newMessage.className = 'chat-message user';
+                newMessage.textContent = message;
+                messagesContainer.appendChild(newMessage);
+                
+                // Scroll to bottom
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                // Clear input
+                input.value = '';
+            }
+        }
+        
+        // Allow Enter key to send message
+        document.getElementById('chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
+

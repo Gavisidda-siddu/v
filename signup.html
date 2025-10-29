@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - HealthConnect</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="card">
+        <h2>🩺 HealthConnect</h2>
+        <h3>Create Your Account</h3>
+        
+        <form id="signup-form">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                <small id="password-error" style="display: none;">Passwords do not match</small>
+            </div>
+            
+            <div id="error-message" class="alert alert-error" style="display: none;"></div>
+            <div id="success-message" class="alert alert-success" style="display: none;"></div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Sign Up</button>
+        </form>
+        
+        <p style="text-align: center; margin-top: 1.5rem;">
+            Already have an account? <a href="signin.html">Sign In</a>
+        </p>
+    </div>
+    
+    <script>
+        // Check if already logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        if (isLoggedIn === 'true') {
+            window.location.href = '{% url 'home' %}';
+        }
+        
+        document.getElementById('signup-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            const errorMsg = document.getElementById('error-message');
+            const successMsg = document.getElementById('success-message');
+            const passwordError = document.getElementById('password-error');
+            
+            // Hide messages
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            passwordError.style.display = 'none';
+            
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                passwordError.style.display = 'block';
+                errorMsg.textContent = 'Passwords do not match';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            // Sign up the user
+            const result = await signup(name, email, password);
+            
+            if (result.success) {
+                // Prompt for OTP and verify
+                const otp = prompt('Enter the 6-digit OTP sent to your email');
+                if (otp) {
+                    const verify = await verifyOtp(email, otp);
+                    if (verify.success) {
+                        localStorage.setItem('isLoggedIn', 'true');
+                        successMsg.textContent = 'Signup complete. You are now logged in.';
+                        successMsg.style.display = 'block';
+                        setTimeout(() => { window.location.href = '{% url 'home' %}'; }, 800);
+                        return;
+                    } else {
+                        errorMsg.textContent = verify.message || 'OTP verification failed';
+                        errorMsg.style.display = 'block';
+                        return;
+                    }
+                }
+                successMsg.textContent = result.message;
+                successMsg.style.display = 'block';
+                setTimeout(() => { window.location.href = '{% url 'signin' %}'; }, 1500);
+            } else {
+                errorMsg.textContent = result.message;
+                errorMsg.style.display = 'block';
+            }
+        });
+    </script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
+

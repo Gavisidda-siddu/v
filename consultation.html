@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Consultation - HealthConnect</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">🩺 HealthConnect</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="appointment.html">Book Appointment</a>
+            <a href="medication.html">Medication Tracker</a>
+            <a href="faq.html">FAQs</a>
+            <a href="callback.html">Request Callback</a>
+            <a href="bloodbank.html">Blood Bank</a>
+            <a href="consultation.html">Video Consultation</a>
+            <a href="records.html">Medical Records</a>
+            <a href="sos.html">Emergency SOS</a>
+            <a href="chat.html">Patient Chat</a>
+            <a href="profile.html">Profile</a>
+            <a href="#" class="logout-btn btn btn-danger" style="padding: 0.5rem 1rem;">Logout</a>
+        </div>
+    </nav>
+
+    <div style="padding: 2rem;">
+        <h1 style="text-align: center; color: #4A90E2; margin-bottom: 2rem;">📹 Video Consultation</h1>
+        
+        <div class="video-container">
+            <div class="video-box">
+                <h3 style="color: #4A90E2; margin-bottom: 1rem;">👨‍⚕️ Doctor View</h3>
+                <div style="background: #444; border-radius: 8px; padding: 3rem; margin-bottom: 1rem;">
+                    <p style="color: #999;">Doctor's video feed would appear here</p>
+                    <p style="color: #999; font-size: 0.9rem;">Dr. Sarah Johnson</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; justify-content: center;">
+                    <button class="btn" style="background: #52C41A;">✓ Camera On</button>
+                    <button class="btn" style="background: #FF4D4F;">✕ End Call</button>
+                </div>
+            </div>
+            
+            <div class="video-box">
+                <h3 style="color: #4A90E2; margin-bottom: 1rem;">👤 Your View</h3>
+                <div style="background: #444; border-radius: 8px; padding: 3rem; margin-bottom: 1rem;">
+                    <p style="color: #999;">Your video feed would appear here</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; justify-content: center;">
+                    <button class="btn" style="background: #52C41A;">✓ Mic On</button>
+                    <button class="btn" style="background: #666;">📹 Video</button>
+                </div>
+            </div>
+        </div>
+        
+        <div style="max-width: 800px; margin: 2rem auto;">
+            <div class="card">
+                <h3>Consultation Details</h3>
+                <p><strong>Doctor:</strong> Dr. Sarah Johnson</p>
+                <p><strong>Department:</strong> General Medicine</p>
+                <p><strong>Duration:</strong> 30 minutes</p>
+                <p><strong>Status:</strong> Connected</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
+

@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Bank - HealthConnect</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">🩺 HealthConnect</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="appointment.html">Book Appointment</a>
+            <a href="medication.html">Medication Tracker</a>
+            <a href="faq.html">FAQs</a>
+            <a href="callback.html">Request Callback</a>
+            <a href="bloodbank.html">Blood Bank</a>
+            <a href="consultation.html">Video Consultation</a>
+            <a href="records.html">Medical Records</a>
+            <a href="sos.html">Emergency SOS</a>
+            <a href="chat.html">Patient Chat</a>
+            <a href="profile.html">Profile</a>
+            <a href="#" class="logout-btn btn btn-danger" style="padding: 0.5rem 1rem;">Logout</a>
+        </div>
+    </nav>
+
+    <div style="max-width: 1000px; margin: 2rem auto; padding: 0 1rem;">
+        <div class="card">
+            <h2>🩸 Blood Bank & Donors</h2>
+            
+            <div class="form-group">
+                <label for="search-blood">Search by Blood Type</label>
+                <input type="text" id="search-blood" placeholder="Enter blood type (e.g., A+, B-, O+)">
+            </div>
+            
+            <div class="form-group">
+                <label for="search-location">Search by Location</label>
+                <input type="text" id="search-location" placeholder="Enter city or area">
+            </div>
+            
+            <button class="btn btn-primary" onclick="searchBloodBanks()" style="width: 100%;">Search</button>
+        </div>
+
+        <div class="table-container" id="bloodbank-results">
+            <h3 style="margin-bottom: 1.5rem;">Nearby Blood Banks</h3>
+            <div id="bloodbanks-list">
+                <div style="background: white; padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <h4 style="color: #4A90E2; margin-bottom: 0.5rem;">📍 City General Hospital</h4>
+                    <p style="color: #666; margin-bottom: 0.3rem;"><strong>Location:</strong> Downtown Medical Center, City</p>
+                    <p style="color: #666; margin-bottom: 0.3rem;"><strong>Available:</strong> A+, A-, B+, B-, O+, O-, AB+, AB-</p>
+                    <p style="color: #666; margin-bottom: 1rem;"><strong>Distance:</strong> 2.5 km</p>
+                    <button class="btn btn-primary" style="font-size: 0.9rem;">Contact</button>
+                </div>
+                
+                <div style="background: white; padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <h4 style="color: #4A90E2; margin-bottom: 0.5rem;">📍 Regional Blood Bank</h4>
+                    <p style="color: #666; margin-bottom: 0.3rem;"><strong>Location:</strong> Health Plaza, City</p>
+                    <p style="color: #666; margin-bottom: 0.3rem;"><strong>Available:</strong> A+, A-, B+, O+, AB+</p>
+                    <p style="color: #666; margin-bottom: 1rem;"><strong>Distance:</strong> 5.8 km</p>
+                    <button class="btn btn-primary" style="font-size: 0.9rem;">Contact</button>
+                </div>
+                
+                <div style="background: white; padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <h4 style="color: #4A90E2; margin-bottom: 0.5rem;">📍 Emergency Donors Network</h4>
+                    <p style="color: #666; margin-bottom: 0.3rem;"><strong>Location:</strong> Emergency Care Center</p>
+                    <p style="color: #666; margin-bottom: 0.3rem;"><strong>Available:</strong> O+ (Urgent), A+, B+</p>
+                    <p style="color: #666; margin-bottom: 1rem;"><strong>Distance:</strong> 3.2 km</p>
+                    <button class="btn btn-primary" style="font-size: 0.9rem;">Contact</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function searchBloodBanks() {
+            alert('Searching blood banks...');
+            // Filter logic would go here in a real application
+        }
+    </script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
+

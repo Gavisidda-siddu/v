@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot - HealthConnect</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">🩺 HealthConnect</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="appointment.html">Book Appointment</a>
+            <a href="medication.html">Medication Tracker</a>
+            <a href="faq.html">FAQs</a>
+            <a href="callback.html">Request Callback</a>
+            <a href="bloodbank.html">Blood Bank</a>
+            <a href="consultation.html">Video Consultation</a>
+            <a href="records.html">Medical Records</a>
+            <a href="sos.html">Emergency SOS</a>
+            <a href="chat.html">Patient Chat</a>
+            <a href="profile.html">Profile</a>
+            <a href="#" class="logout-btn btn btn-danger" style="padding: 0.5rem 1rem;">Logout</a>
+        </div>
+    </nav>
+
+    <div style="max-width: 1000px; margin: 2rem auto; padding: 0 1rem;">
+        <div class="card">
+            <h2>🤖 HealthConnect Assistant</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 2rem;">
+                How can I help you today?
+            </p>
+            
+            <div class="feature-card" style="margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem;">Common Questions</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                    <button class="btn" style="background: #E6F2FF; color: #4A90E2;">Book Appointment</button>
+                    <button class="btn" style="background: #E6F2FF; color: #4A90E2;">Medication Info</button>
+                    <button class="btn" style="background: #E6F2FF; color: #4A90E2;">Emergency Help</button>
+                    <button class="btn" style="background: #E6F2FF; color: #4A90E2;">Video Consultation</button>
+                </div>
+            </div>
+            
+            <div class="chatbot active">
+                <div class="chatbot-header">
+                    <span>🤖 HealthConnect Assistant</span>
+                    <button class="chatbot-close" id="chatbot-close" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">&times;</button>
+                </div>
+                <div class="chatbot-body">
+                    <div class="chat-message bot">
+                        Hello! I'm HealthConnect Assistant. How can I help you today?
+                    </div>
+                    <div class="chat-message user">
+                        I need help booking an appointment
+                    </div>
+                    <div class="chat-message bot">
+                        Great! You can book an appointment by visiting the "Book Appointment" page. Would you like me to guide you through the process?
+                    </div>
+                    <div class="chat-message user">
+                        How do I track my medications?
+                    </div>
+                    <div class="chat-message bot">
+                        You can track your medications on the "Medication Tracker" page. Simply add your medications with dosage and reminder times. The system will help you manage your schedule.
+                    </div>
+                </div>
+                <div class="chatbot-input">
+                    <input type="text" placeholder="Type your message..." id="chatbot-input">
+                    <button class="btn btn-primary" onclick="sendChatbotMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendChatbotMessage() {
+            const input = document.getElementById('chatbot-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                const chatbotBody = document.querySelector('.chatbot-body');
+                const userMessage = document.createElement('div');
+                userMessage.className = 'chat-message user';
+                userMessage.textContent = message;
+                chatbotBody.appendChild(userMessage);
+                
+                // Auto response
+                setTimeout(() => {
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'chat-message bot';
+                    botMessage.textContent = 'Thank you for your message. For more information, please visit the relevant section or contact our support team.';
+                    chatbotBody.appendChild(botMessage);
+                    chatbotBody.scrollTop = chatbotBody.scrollHeight;
+                }, 500);
+                
+                chatbotBody.scrollTop = chatbotBody.scrollHeight;
+                input.value = '';
+            }
+        }
+        
+        document.getElementById('chatbot-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendChatbotMessage();
+            }
+        });
+    </script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
+
